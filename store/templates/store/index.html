@@ -5,35 +5,21 @@
 
 {% block content %}
   <div class="row">
-    <div class="col-lg-4">
-      <img class="thumbnail" src="{% static 'images/placeholder.png' %}">
+    {% for product in products %}
+    <div class="col-lg-3 mb-2 mt-3">
+      <img class="thumbnail" style="object-fit: cover;" src="{{product.image_url}}">
       <div class="box-element product">
-        <h6><strong>Product</strong></h6>
+        <h6><strong>{{product.name}}</strong></h6>
         <hr>
-        <button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
-        <a class="btn btn-outline-success" href="#">View</a>
-        <p style="float: right"><strong>$20</strong></p>
+        <div class='d-flex flex-wrap justify-content-between align-items-center'>
+          <div>
+            <button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
+            <a class="btn btn-outline-success" href="#">View</a>
+          </div>
+          <p style="font-size: 15px"><strong>£{{product.price}}</strong></p>
+        </div>
+       
       </div>
     </div>
-    <div class="col-lg-4">
-      <img class="thumbnail" src="{% static 'images/placeholder.png' %}">
-      <div class="box-element product">
-        <h6><strong>Product</strong></h6>
-        <hr>
-        <button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
-        <a class="btn btn-outline-success" href="#">View</a>
-        <p style="float: right"><strong>$20</strong></p>
-      </div>
-    </div>
-    <div class="col-lg-4">
-      <img class="thumbnail" src="{% static 'images/placeholder.png' %}">
-      <div class="box-element product">
-        <h6><strong>Product</strong></h6>
-        <hr>
-        <button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
-        <a class="btn btn-outline-success" href="#">View</a>
-        <p style="float: right"><strong>$20</strong></p>
-      </div>
-    </div>
-  </div>
+    {% endfor %}
 {% endblock %}
