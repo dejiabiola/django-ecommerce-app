@@ -1,12 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  E restrict airflow!!!
-</body>
-</html>
+{% extends 'store/base.html' %}
+{% load static %}
+
+{%block title%}<title>Welcome to Ecom</title>{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-lg-4">
+      <img class="thumbnail" src="{% static 'images/placeholder.png' %}">
+      <div class="box-element product">
+        <h6><strong>Product</strong></h6>
+        <hr>
+        <button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
+        <a class="btn btn-outline-success" href="#">View</a>
+        <p style="float: right"><strong>$20</strong></p>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <img class="thumbnail" src="{% static 'images/placeholder.png' %}">
+      <div class="box-element product">
+        <h6><strong>Product</strong></h6>
+        <hr>
+        <button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
+        <a class="btn btn-outline-success" href="#">View</a>
+        <p style="float: right"><strong>$20</strong></p>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <img class="thumbnail" src="{% static 'images/placeholder.png' %}">
+      <div class="box-element product">
+        <h6><strong>Product</strong></h6>
+        <hr>
+        <button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
+        <a class="btn btn-outline-success" href="#">View</a>
+        <p style="float: right"><strong>$20</strong></p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
