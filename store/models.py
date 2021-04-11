@@ -29,8 +29,25 @@ class Order(models.Model):
     complete = models.BooleanField(default=False, null=True, blank=False)
     transation_id = models.CharField(max_length=200, null=True)
 
+    @property
+    def get_cart_total(self):
+      lineitems = self.lineitem_set.all()
+      total = 0
+      for item in lineitems:
+        total += item.get_total
+      return total
+
+    @property
+    def get_cart_items(self):
+      lineitems = self.lineitem_set.all()
+      total = 0
+      for item in lineitems:
+        total += item.quantity
+      return total
+
     def __str__(self):
-        return f'{self.customer},{self.created_date}'
+      return f'{self.customer},{self.created_date}'
+
 
 
 class LineItem(models.Model):
@@ -40,7 +57,12 @@ class LineItem(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.quantity},{self.product.name},{self.order.customer.name},{self.created_date}'
+      return f'{self.quantity},{self.product.name},{self.order.customer.name},{self.created_date}'
+
+    @property
+    def get_total(self):
+      total = self.product.price * self.quantity
+      return total
 
 class ShippingAddress(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)
