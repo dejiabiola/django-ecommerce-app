@@ -42,17 +42,25 @@
               >
             </li>
           </ul>
-          <div class="d-flex">
-            <a href="#" class="btn btn-warning">Login</a>
+          <div class="d-flex align-items-center">
+            
+          {% if request.user.is_authenticated %}
+            <span class="d-block mr-5">Hello, {{request.user}}</>
+            <a href="{% url 'logout' %}" class="btn btn-warning">Logout</a>
+          {% else %}
+            <a href="{% url 'login' %}" class="btn btn-warning">Login</a>
+          {% endif %}
             <a href="{% url 'cart' %}">
               <img id="cart-icon" src="{% static 'images/shopping-icon.png' %}" />
             </a>
-            <p id="cart-total">0</p>
           </div>
         </div>
       </div>
     </nav>
     <section class="container">{% block content %} {% endblock %}</section>
+    <!-- <footer class="d-flex justify-content-center align-items-center p-4 bg-dark">
+      Buit with by Adedeji Abiola
+    </footer> -->
 
     <!-- JavaScript Bundle with Popper -->
     <script

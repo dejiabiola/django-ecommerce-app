@@ -4,7 +4,7 @@
 {%block title%}<title>Signup to Ecom</title>{% endblock %}
 
 {% block content %}
-<form action="" method="POST">
+<form action="" method="POST" class="d-flex flex-column align-items-center">
   {% csrf_token %}
   {% for field in form %}
     <div class="mb-2 mt-2">
@@ -13,8 +13,9 @@
     </div>
   {% endfor %}
   {{form.errors}}
-  <input type="submit" value="register">
-</form>
-<p>Have an account? <a href="{% url 'login' %}">Login</a></p>
+  <input type="submit" value="register" class="mb-4">
+  <p>Have an account? <a href="{% url 'login' %}">Login</a></p>
 <a href="{% url 'index' %}">Continue as guest</a>
+</form>
+
 {% endblock %}

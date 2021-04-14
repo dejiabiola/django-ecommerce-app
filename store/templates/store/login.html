@@ -4,16 +4,22 @@
 {%block title%}<title>Login to Ecom</title>{% endblock %}
 
 {% block content %}
-<form action="" method="POST">
+<form action="" method="POST" class="d-flex flex-column align-items-center">
   {% csrf_token %}
-  {% for field in form %}
-    <div class="mb-2 mt-2">
-      {{field.label}}:
-      <p>{{field}}</p>
-    </div>
+  <div class="mb-2 mt-2">
+    <label class="d-block for="username">Username:</label>
+    <input type="text" name="username" id="username">
+  </div>
+  <div class="mb-2 mt-2">
+    <label class="d-block" for="password">Password:</label>
+    <input type="password" name="password" id="password">
+  </div>
+  <input type="submit" value="Login" class="mb-3">
+  {% for message in messages %}
+    {{message}}
   {% endfor %}
-  <input type="submit" value="register">
+  <p>Don't have an account <a href="{% url 'register' %}">register</a></p>
+  <a href="{% url 'index' %}">Continue as guest</a>
 </form>
-<p>Don't have an account<a href="{% url 'register' %}">register</a></p>
-<a href="{% url 'index' %}">Continue as guest</a>
+
 {% endblock %}
