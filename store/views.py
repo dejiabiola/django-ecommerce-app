@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from .forms import CreateUserForm
+from .forms import CreateUserForm, ProductForm
 # Create your views here.
 
 
@@ -63,9 +63,52 @@ def index(request):
   context = {'products': products}
   return render(request, 'store/index.html', context)
 
-def product_detail(request):
-  context = {}
+def product_detail(request, id):
+  product = get_object_or_404(Product, id=id)
+  context = {'product': product}
   return render(request, 'store/product_detail.html', context)
+
+def product_buy(request):
+  if request.method== "POST":
+      temp_id = int(request.POST.get('id',''))
+      quantity = int(request.POST.get('quantity', ''))
+      basket = request.session['basket']
+      basket.append([temp_id,quantity])
+      request.session['basket'] = basket
+  return redirect('product_list')
+
+def product_new(request):
+    if request.method=="POST":
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.created_date = timezone.now()
+            product.save()
+            return redirect('product_detail', id=product.id)
+    else:
+        form = ProductForm()
+    return render(request, 'store/product_edit.html', {'form': form})
+
+def product_edit(request, id):
+    product = get_object_or_404(Product, id=id)
+    if request.method=="POST":
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.created_date = timezone.now()
+            product.save()
+            return redirect('product_detail', id=product.id)
+    else:
+        form = ProductForm(instance=product)
+    return render(request, 'shop/product_edit.html', {'form': form})
+
+def product_delete(request, id):
+    product = get_object_or_404(Product, id=id)
+    deleted = request.session.get('deleted', 'empty')
+    request.session['deleted'] = product.name
+    product.delete()
+    messages.success(request, product.name + ' has been deleted successfully')
+    return redirect('index')
 
 def cart(request):
   user = request.user
