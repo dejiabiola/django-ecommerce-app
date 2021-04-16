@@ -1,5 +1,5 @@
 """
-This file will populate the tables using Faker
+This file will populate the tables using the CSV file
 """
 import csv
 import os
@@ -26,16 +26,6 @@ class Command(BaseCommand):
         User.objects.all().delete()
         ShippingAddress.objects.all().delete()
         print("tables dropped successfully")
-
-        # fake = Faker()
-
-        # # create some products
-        # for i in range(10):
-        #     product = Product.objects.create(
-        #     name = fake.catch_phrase(),
-        #     price = int( decimal.Decimal(random.randrange(155,899))/100),
-        #     )
-        #     product.save()
 
         # create the table
         base_dir = Path(__file__).resolve().parent.parent.parent.parent
