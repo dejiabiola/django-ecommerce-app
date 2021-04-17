@@ -8,23 +8,36 @@ from .forms import CreateUserForm, ProductForm
 
 
 def user_login(request):
+  # if user is already logged in, don't show him the login page
   if request.user.is_authenticated:
     return redirect('index')
   else:
+    try:
+      del request.session['user']
+    except KeyError:
+      pass
     if request.method == 'POST':
-      username = request.POST['username']
-      password = request.POST['password']
-      user = authenticate(request, username=username, password=password)
-      if user is not None:
-        login(request, user)
-        messages.success(request, 'You were logged in successfully')
-        # Redirect to a success page.
-        if user.is_authenticated & user.is_staff:
-          return redirect(dashboard)
-        elif user.is_authenticated:
-          return redirect('/')
+      # user wants to login as guest, store that is sessions
+      if request.POST['guest'] == 'guest':
+        request.session['user'] = 'guest'
+        guest_login = request.session['user']
+        print("who you be:", guest_login)
+        return redirect('/')
+
       else:
-        messages.error(request, 'Invalid username or password')
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+          login(request, user)
+          messages.success(request, 'You were logged in successfully')
+          # Redirect to a success page.
+          if user.is_authenticated & user.is_staff:
+            return redirect(dashboard)
+          elif user.is_authenticated:
+            return redirect('/')
+        else:
+          messages.error(request, 'Invalid username or password')
 
     return render(request, 'store/login.html')
 
@@ -59,13 +72,21 @@ def logoutUser(request):
   return redirect('login')
 
 def index(request):
+  try:
+    guest_login = request.session['user']
+  except KeyError:
+    guest_login = None
   products = Product.objects.all()
-  context = {'products': products}
+  context = {'products': products, 'guest_login': guest_login}
   return render(request, 'store/index.html', context)
 
 def product_detail(request, id):
+  try:
+    guest_login = request.session['user']
+  except KeyError:
+    guest_login = None
   product = get_object_or_404(Product, id=id)
-  context = {'product': product}
+  context = {'product': product, 'guest_login': guest_login}
   return render(request, 'store/product_detail.html', context)
 
 def product_buy(request):

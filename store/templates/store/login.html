@@ -6,6 +6,7 @@
 {% block content %}
 <form action="" method="POST" class="d-flex flex-column align-items-center">
   {% csrf_token %}
+  <input type="hidden" name="guest" value="not-guest">
   <div class="mb-2 mt-2">
     <label class="d-block for="username">Username:</label>
     <input type="text" name="username" id="username">
@@ -19,7 +20,11 @@
     {{message}}
   {% endfor %}
   <p>Don't have an account <a href="{% url 'register' %}">register</a></p>
-  <a href="{% url 'index' %}">Continue as guest</a>
+</form>
+<form action="" method="POST" class="d-flex flex-column align-items-center">
+  {% csrf_token %}
+  <input type="hidden" name="guest" value="guest">
+  <input type="submit" value="Continue as Guest" style="border:none;background:none;text-decoration: underline;color:#0B58CA">
 </form>
 
 {% endblock %}
