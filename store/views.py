@@ -195,6 +195,8 @@ def cart(request):
     for item in items:
       total_amount += item.get_total()
       total_quantity += item.quantity
+    request.session['amount'] = str(total_amount)
+    request.session['quantity'] = str(total_quantity)
     order = {'get_cart_total': total_amount, 'get_cart_items': total_quantity}
   else:
     items = []
@@ -203,15 +205,22 @@ def cart(request):
   return render(request, 'store/cart.html', context)
 
 def checkout(request):
+  guest_login = request.session.get('user', '')
   user = request.user
   if user.is_authenticated:
     customer = user.customer
     order, created = Order.objects.get_or_create(customer=customer, complete=False) 
     items = order.lineitem_set.all()
+  elif guest_login == 'guest':
+    items = get_basket(request)
+    total_amount = request.session.get('amount', 0)
+    total_quantity = request.session.get('quantity', 0)
+    order = {'get_cart_total': total_amount, 'get_cart_items': total_quantity}
+
   else:
     items = []
     order = {'get_cart_total': 0, 'get_cart_items': 0}
-  context = {'items': items, 'order': order}
+  context = {'items': items, 'order': order, 'guest_login': guest_login}
   return render(request, 'store/checkout.html', context)
 
 
