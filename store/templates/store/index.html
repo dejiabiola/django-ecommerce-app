@@ -7,6 +7,7 @@
   {% for message in messages %}
     <p style="position:absolute">{{message}}</p>
   {% endfor %}
+  <h1>Product List</h1>
   <div class="row">
     {% for product in products %}
     <div class="col-lg-2 mb-2 mt-3">
@@ -16,7 +17,6 @@
         <hr>
         <div class='d-flex flex-wrap justify-content-between align-items-center'>
           <div>
-            <!-- <button  class="btn btn-outline-secondary add-btn">Add to Cart</button> -->
             <a class="btn btn-outline-success" href="{% url 'product_detail' id=product.id %}">View</a>
           </div>
           <p style="font-size: 15px"><strong>£{{product.price}}</strong></p>

@@ -10,6 +10,7 @@ from django.db import models
 from pathlib import Path
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand, CommandError
+from faker import Faker
 
 from store.models import Customer, LineItem, Order, Product
 
@@ -26,8 +27,8 @@ class Command(BaseCommand):
         User.objects.all().delete()
         print("tables dropped successfully")
 
-        FAKE = faker()
-        
+        fake = Faker()
+
         # create some customers
         #! Add links to where code was copied
         for i in range(10):
