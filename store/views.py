@@ -112,7 +112,9 @@ def product_detail(request, id):
   except KeyError:
     guest_login = None
   product = get_object_or_404(Product, id=id)
-  context = {'product': product, 'guest_login': guest_login}
+  related_products = Product.objects.filter(brand=product.brand)
+  print(len(related_products))
+  context = {'product': product, 'guest_login': guest_login, "related_products": related_products}
   return render(request, 'store/product_detail.html', context)
 
 def product_buy(request):
