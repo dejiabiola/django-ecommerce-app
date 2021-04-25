@@ -4,7 +4,7 @@
 {%block title%}<title>Login to Ecom</title>{% endblock %}
 
 {% block content %}
-<form action="" method="POST" class="d-flex flex-column align-items-center">
+<form action="" method="POST" class="edit-form">
   {% csrf_token %}
   <input type="hidden" name="guest" value="not-guest">
   <div class="mb-2 mt-2">
@@ -21,7 +21,7 @@
   {% endfor %}
   <p>Don't have an account <a href="{% url 'register' %}">register</a></p>
 </form>
-<form action="" method="POST" class="d-flex flex-column align-items-center">
+<form action="" method="POST" class="">
   {% csrf_token %}
   <input type="hidden" name="guest" value="guest">
   <input type="submit" value="Continue as Guest" style="border:none;background:none;text-decoration: underline;color:#0B58CA">

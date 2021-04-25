@@ -7,9 +7,10 @@ from django.db.models.signals import post_save
 # create models here
 
 class Customer(models.Model):
-  user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, blank=True)
+  user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
   name = models.CharField(max_length=200, null=True)
-  email = models.CharField(max_length=200, null=True)
+  email = models.CharField(max_length=200)
+  address = models.TextField(null=True)
   created_date = models.DateTimeField(auto_now_add=True)
 
   def __str__(self):
@@ -27,6 +28,8 @@ class Customer(models.Model):
   def save_user_profile(sender, instance, **kwargs):
     instance.customer.save()
 
+class User(models.Model):
+  name = models.TextField()
 
 class Product(models.Model):
     name = models.CharField(max_length=200)
@@ -78,15 +81,3 @@ class LineItem(models.Model):
     def get_total(self):
       total = self.product.price * self.quantity
       return total
-
-class ShippingAddress(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    address = models.CharField(max_length=200, null=True)
-    city = models.CharField(max_length=200, null=True)
-    state = models.CharField(max_length=200, null=True)
-    zipcode = models.CharField(max_length=200, null=True)
-    created_date = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-      return self.address

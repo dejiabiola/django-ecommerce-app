@@ -6,9 +6,15 @@ from .models import Order, Product
 
 
 class CreateUserForm(UserCreationForm):
+  username = forms.CharField(max_length=30)
+  first_name = forms.CharField(max_length=30)
+  last_name = forms.CharField(max_length=30)
+  email = forms.EmailField(max_length=50)
+  address = forms.CharField()
   class Meta:
     model = User
-    fields = ['username', 'email', 'password1', 'password2']
+    fields = [ 'first_name', 'last_name', 'username', 'email', 'password1', 'password2', 
+        'address',]
 
 
 class ProductForm (forms.ModelForm):

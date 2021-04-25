@@ -5,7 +5,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import CreateUserForm, ProductForm
 
-
 class Basket:
   # a data transfer object to shift items from cart to page. Used for guest login only
   
@@ -27,6 +26,7 @@ class Basket:
 # convenience method as used in several methods
 def get_basket(request):
   basket = request.session.get('basket', [])
+  print("basket", basket)
   products = []
   for item in basket:
     product = Product.objects.get(id=item[0])
@@ -48,7 +48,6 @@ def user_login(request):
       if request.POST['guest'] == 'guest':
         request.session['user'] = 'guest'
         guest_login = request.session['user']
-        print("who you be:", guest_login)
         return redirect('/')
 
       else:
@@ -121,7 +120,6 @@ def product_buy(request):
     guest_login = request.session['user']
   except KeyError:
     guest_login = None
-    print("We have landed", guest_login)
   if guest_login == 'guest' or request.user.is_authenticated: 
     if request.method== "POST":
         product_id = int(request.POST.get('id',''))
@@ -156,17 +154,21 @@ def product_new(request):
     return render(request, 'store/product_edit.html', {'form': form})
 
 def product_edit(request, id):
-    product = get_object_or_404(Product, id=id)
-    if request.method=="POST":
-        form = ProductForm(request.POST, instance=product)
-        if form.is_valid():
-            product = form.save(commit=False)
-            product.created_date = timezone.now()
-            product.save()
-            return redirect('product_detail', id=product.id)
+    user = request.user
+    if user.is_superuser or user.is_staff:
+      product = get_object_or_404(Product, id=id)
+      if request.method=="POST":
+          form = ProductForm(request.POST, instance=product)
+          if form.is_valid():
+              product = form.save(commit=False)
+              product.created_date = timezone.now()
+              product.save()
+              return redirect('product_detail', id=product.id)
+      else:
+          form = ProductForm(instance=product)
+      return render(request, 'store/product_edit.html', {'form': form})
     else:
-        form = ProductForm(instance=product)
-    return render(request, 'shop/product_edit.html', {'form': form})
+      return redirect('login')
 
 # Delete Product By Admin Logic
 def product_delete(request, id):
@@ -185,7 +187,7 @@ def cart(request):
   # use order and line item models if user is signed in with username
   if user.is_authenticated:
     customer = user.customer
-    order, created = Order.objects.get_or_create(customer=customer, complete=False) 
+    order, created = Order.objects.get_or_create(customer=customer, complete=False)
     items = order.lineitem_set.all()
   # if user is signed in as guest, use sessions to hold the basket
   elif guest_login == 'guest':
@@ -207,12 +209,15 @@ def cart(request):
 def checkout(request):
   guest_login = request.session.get('user', '')
   user = request.user
+  if user.is_authenticated != True and guest_login != 'guest':
+    return redirect('login')
   if user.is_authenticated:
     customer = user.customer
     order, created = Order.objects.get_or_create(customer=customer, complete=False) 
     items = order.lineitem_set.all()
   elif guest_login == 'guest':
     items = get_basket(request)
+    print(items)
     total_amount = request.session.get('amount', 0)
     total_quantity = request.session.get('quantity', 0)
     order = {'get_cart_total': total_amount, 'get_cart_items': total_quantity}
@@ -220,13 +225,63 @@ def checkout(request):
   else:
     items = []
     order = {'get_cart_total': 0, 'get_cart_items': 0}
-  context = {'items': items, 'order': order, 'guest_login': guest_login}
+  context = {'items': items, 'order': order, 'guest_login': guest_login, 'user': user}
   return render(request, 'store/checkout.html', context)
 
 
 def dashboard(request):
   user = request.user
-  if user.is_authenticated & user.is_staff:
+  if user.is_authenticated and user.is_staff:
     return render(request, 'store/dashboard.html')
   else:
     return redirect('login')
+
+
+# save order, clear basket and thank customer
+def payment(request):
+  if request.method == "POST":
+    try:
+      guest_login = request.session['user']
+    except KeyError:
+      guest_login = None
+    
+    user = request.user 
+    if user.is_authenticated:
+      customer = user.customer
+      order, created = Order.objects.get_or_create(customer=customer, complete=False) 
+      items = order.lineitem_set.all()
+
+    # if user is signed in as guest, use sessions to hold the basket
+    elif guest_login == 'guest':
+      email = request.POST.get('email', '')
+      name = request.POST.get('name', '')
+      customer, created = Customer.objects.get_or_create(email=email)
+      customer.name = name
+      customer.save()
+      order = Order.objects.create(customer=customer, complete=False)
+      basket = request.session.get('basket', [])
+      print("before clear", basket)
+      for item in basket:
+        product = Product.objects.get(id=item[0])
+        lineItem = LineItem.objects.create(product=product, order=order, quantity=item[1])
+      del request.session['basket']
+      print('cleared basket', basket)
+
+
+    # order.refresh_from_db()
+    order.complete = True
+    order.save()
+    order.refresh_from_db()
+    # if order.complete == True:
+    #   ShippingAddress.objects.create(
+    #     customer=customer,
+    #     order=order,
+    #     address=address,
+    #     city=city,
+    #     state=state,
+    #     zipcode=zipcode
+    #   )
+    return redirect('index')
+
+def contact(request):
+  return render(request, 'store/contact.html')
