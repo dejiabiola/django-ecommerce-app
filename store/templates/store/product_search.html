@@ -1,0 +1,43 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{%block title%}<title>Search product</title>{% endblock %}
+
+{% block content %}
+<div class="">
+  <h1 class="text-center">Product Search</h1>
+  <p class="mb-0" style="margin-bottom: 0px">Search for an item by name, gender (men, women), type of clothing (shirt, trouser, pants) or brand:</p>
+  <form action="" method="post" class="mb-5">
+    {% csrf_token %}
+    <input type="text" name="product_search" id="product_search">
+    <input type="submit" value="Search">
+  </form>
+
+  <div>
+    {% if searched_products|length > 0 and search != '' %}
+    <div class="row mt-5">
+      <h5>Product Results for {{search|title}}</h5>
+      {% for product in searched_products %}
+      <div class="col-lg-2 mb-2 mt-3">
+        <img style="height:240px;" class="thumbnail" style="object-fit: cover;" src="{{product.image_url}}">
+        <div class="box-element product">
+          <h6 style="height:70px"><strong>{{product.name|title}}</strong></h6>
+          <hr>
+          <div class='d-flex flex-wrap justify-content-between align-items-center'>
+            <div>
+              <a class="btn btn-outline-success" href="{% url 'product_detail' id=product.id %}">View</a>
+            </div>
+            <p style="font-size: 15px"><strong>£{{product.price}}</strong></p>
+          </div> 
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% elif searched_products|length < 1 and search != '' %}
+      <p>Search returned no result. Try using another search query</p>
+    {% else %}
+      <div></div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

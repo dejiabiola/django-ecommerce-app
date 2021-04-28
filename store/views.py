@@ -4,6 +4,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import CreateUserForm, ProductForm
+from django.db.models import Q
 
 class Basket:
   # a data transfer object to shift items from cart to page. Used for guest login only
@@ -170,6 +171,22 @@ def product_edit(request, id):
       return render(request, 'store/product_edit.html', {'form': form})
     else:
       return redirect('login')
+
+#search from product
+def product_search(request):
+  search = ''
+  searched_products = []
+  if request.method == 'POST':
+    search = request.POST['product_search']
+    products_by_brand = Product.objects.filter(brand=search)
+    searched_products.extend(products_by_brand)
+    #* Next line inspiration gotten from https://stackoverflow.com/questions/7088173/how-to-query-model-where-name-contains-any-word-in-python-list
+    products_by_name = Product.objects.filter(Q(name__contains=search))
+    searched_products.extend(products_by_name)
+    
+
+  context = {'searched_products': searched_products, 'search': search}
+  return render(request, 'store/product_search.html', context)
 
 # Delete Product By Admin Logic
 def product_delete(request, id):

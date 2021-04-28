@@ -1,15 +1,15 @@
 {% extends 'store/base.html' %}
 {% load static %}
 
-{%block title%}<title>{{product.name}}</title>{% endblock %}
+{%block title%}<title>{{product.name|title}}</title>{% endblock %}
 
 {% block content %}
 <div>
   <div class="mt-5 mb-5 d-flex flex-row align-items-center justify-content-between mx-auto" style="max-width: 800px;">
     <img src="{{product.image_url}}" alt="{{product.name}}">
     <div>
-      <h3 class="mt-3">{{product.name}}</h3>
-      <h5>Brand: {{product.brand}}</h5>
+      <h3 class="mt-3">{{product.name|title}}</h3>
+      <h5>Brand: {{product.brand|title}}</h5>
       <h5>Price: £{{product.price}}</h5>
       <form action="/product/buy/" method="POST" class="d-flex">
         {% csrf_token %}
@@ -27,21 +27,21 @@
     </div> 
   </div>
   <div class=" pt-5">
-    <h4 class="text-center mt-5">More Products from {{product.brand}}</h4> 
+    <h4 class="text-center mt-5">More Products from {{product.brand|title}}</h4> 
     <div class="row mb-5">
       {% for prod in related_products %}
       {% if prod.id != product.id %}
       <div class="col-lg-3 mb-2 mt-3">
         <img style="height:240px;" class="thumbnail" style="object-fit: cover;" src="{{prod.image_url}}">
         <div class="box-element product">
-          <h6 style="height:70px"><strong>{{prod.name}}</strong></h6>
+          <h6 style="height:70px"><strong>{{prod.name|title}}</strong></h6>
           <hr>
           <div class='d-flex flex-wrap justify-content-between align-items-center'>
             <div>
               <a class="btn btn-outline-success" href="{% url 'product_detail' id=prod.id %}">View</a>
             </div>
             <p style="font-size: 15px"><strong>£{{prod.price}}</strong></p>
-          </div> 
+          </div>
         </div>
       </div>
       {% endif %}

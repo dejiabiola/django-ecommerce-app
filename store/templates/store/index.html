@@ -13,7 +13,7 @@
     <div class="col-lg-2 mb-2 mt-3">
       <img style="height:240px;" class="thumbnail" style="object-fit: cover;" src="{{product.image_url}}">
       <div class="box-element product">
-        <h6 style="height:70px"><strong>{{product.name}}</strong></h6>
+        <h6 style="height:70px"><strong>{{product.name|title}}</strong></h6>
         <hr>
         <div class='d-flex flex-wrap justify-content-between align-items-center'>
           <div>
@@ -24,4 +24,5 @@
       </div>
     </div>
     {% endfor %}
+  </div>
 {% endblock %}

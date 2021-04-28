@@ -26,8 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'x-p-pctm692+e*#^%w929qy$r-zkwk6#fu8x_6gpn6$$8(v22h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
+# * accepts all hosts
 ALLOWED_HOSTS = ['*']
 
 
@@ -124,11 +125,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATICFILES_DIRS = [
-  os.path.join(BASE_DIR, 'static')
-]
+# STATICFILES_DIRS = [
+#   os.path.join(BASE_DIR, 'static')
+# ]
 
 # Heroku: Update database configuration from $DATABASE_URL.
 db_from_env = dj_database_url.config(conn_max_age=500)

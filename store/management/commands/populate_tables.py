@@ -53,9 +53,9 @@ class Command(BaseCommand):
           for row in reader:
             print(row)
             product = Product.objects.create(
-              name = row[0],
+              name = row[0].lower(),
               price = float(row[1]),
-              brand = row[5],
+              brand = row[5].lower(),
               image_url = row[6]
             )
             product.save()
