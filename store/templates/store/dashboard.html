@@ -5,4 +5,44 @@
 
 {% block content %}
 <h1>Dashboard</h1>
+<div style="height: 400px; width: 400px">
+  <canvas id="myChart" width="200" height="200"></canvas>
+</div>
+<h4>Table showing the number of products we have for different brands in ascending order</h4>
+<div class="d-flex">
+  <div>
+    <h6>Brand Name</h6>
+    {% for name in names %}
+    <p>{{name|title}}</p>
+    {% endfor %}
+  </div>
+  <div>
+    <h6>Products In Stock</h6>
+    {% for number in numbers %}
+    <p>{{number}}</p>
+    {% endfor %}
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script type= 'text/javascript'>
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+// The type of chart we want to create
+type: 'bar',
+
+// The data for our dataset
+data: {
+    labels: ['hicode', 'tripr', 'fastcolors', 'van heusen', 'jockey'],
+    datasets: [{
+        label: 'Top 5 brands in stock',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: [{{number5}}, {{number4}}, {{number3}}, {{number2}}, {{number1}}]
+    }]
+},
+
+// Configuration options go here
+options: {}
+});
+</script>
 {% endblock %}

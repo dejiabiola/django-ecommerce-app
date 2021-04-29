@@ -27,7 +27,6 @@ class Basket:
 # convenience method as used in several methods
 def get_basket(request):
   basket = request.session.get('basket', [])
-  print("basket", basket)
   products = []
   for item in basket:
     product = Product.objects.get(id=item[0])
@@ -235,7 +234,6 @@ def checkout(request):
     items = order.lineitem_set.all()
   elif guest_login == 'guest':
     items = get_basket(request)
-    print(items)
     total_amount = request.session.get('amount', 0)
     total_quantity = request.session.get('quantity', 0)
     order = {'get_cart_total': total_amount, 'get_cart_items': total_quantity}
@@ -250,7 +248,34 @@ def checkout(request):
 def dashboard(request):
   user = request.user
   if user.is_authenticated and user.is_staff:
-    return render(request, 'store/dashboard.html')
+    all_brands = {}
+    products = Product.objects.all()
+    for product in products:
+      brand = product.brand
+      if brand in all_brands:
+        all_brands[brand] += 1
+      else:
+        all_brands[brand] = 1
+    all_brands = dict(sorted(all_brands.items(), key=lambda item: item[1]))
+    brand_names = list(all_brands.keys())
+    brand_numbers = list(all_brands.values())
+    number5 = brand_numbers[-1]
+    number4 = brand_numbers[-2]
+    number3 = brand_numbers[-3]
+    number2 = brand_numbers[-4]
+    number1 = brand_numbers[-5]
+    name5 = brand_names[-1]
+    name4 = brand_names[-2]
+    name3 = brand_names[-3]
+    name2 = brand_names[-4]
+    name1 = brand_names[-5] 
+    orders = Order.objects.all()
+    brand_names = reversed(brand_names)
+    brand_numbers = reversed(brand_numbers)
+    context = {'names': brand_names, 'numbers': brand_numbers, 'number5':number5, 'number4':number4, 'number3':number3,
+    'number2':number2, 'number1':number1, 'name5': name5, 'name4': name4, 'name3': name3, 'name2': name2, 'name1': name1,
+    'orders': orders}
+    return render(request, 'store/dashboard.html', context)
   else:
     return redirect('login')
 
@@ -278,12 +303,10 @@ def payment(request):
       customer.save()
       order = Order.objects.create(customer=customer, complete=False)
       basket = request.session.get('basket', [])
-      print("before clear", basket)
       for item in basket:
         product = Product.objects.get(id=item[0])
         lineItem = LineItem.objects.create(product=product, order=order, quantity=item[1])
       del request.session['basket']
-      print('cleared basket', basket)
 
 
     # order.refresh_from_db()

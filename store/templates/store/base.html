@@ -82,7 +82,7 @@
             <span class="d-block mr-5">Hello, {{request.user}}</>
             <a href="{% url 'logout' %}" class="btn btn-warning">Logout</a>
           {% elif guest_login == 'guest' %}
-            <span class="d-block mr-5">Signed in as {{guest_login}}</>
+            <span class="d-block mr-5 text-white">Signed in as {{guest_login}}</>
             <a href="{% url 'logout' %}" class="btn btn-warning">Login</a>
           {% else %}
             <a href="{% url 'login' %}" class="btn btn-warning">Login</a>
