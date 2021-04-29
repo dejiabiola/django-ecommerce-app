@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Order, Product
 
-
+# Reference https://github.com/scharlau/shopping_exercise_django/blob/main/shop/forms.py
 class CreateUserForm(UserCreationForm):
   username = forms.CharField(max_length=30)
   first_name = forms.CharField(max_length=30)

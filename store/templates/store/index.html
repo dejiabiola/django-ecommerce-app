@@ -5,7 +5,9 @@
 
 {% block content %}
   {% for message in messages %}
-    <p style="position:absolute">{{message}}</p>
+  <div class="alert alert-success" role="alert">
+    <p>{{message}}</p>  
+  </div>
   {% endfor %}
   <h1>Product List</h1>
   <div class="row">

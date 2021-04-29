@@ -71,6 +71,14 @@
               <a
                 class="nav-link active"
                 aria-current="page"
+                href="{% url 'cart' %}"
+                >Cart</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
                 href="{% url 'contact' %}"
                 >Contact</a
               >
@@ -79,17 +87,14 @@
           <div class="d-flex align-items-center">
             
           {% if request.user.is_authenticated %}
-            <span class="d-block mr-5">Hello, {{request.user}}</>
+            <span class="d-block mr-5 text-white">Hello, {{request.user}}</>
             <a href="{% url 'logout' %}" class="btn btn-warning">Logout</a>
           {% elif guest_login == 'guest' %}
             <span class="d-block mr-5 text-white">Signed in as {{guest_login}}</>
-            <a href="{% url 'logout' %}" class="btn btn-warning">Login</a>
+            <a href="{% url 'logout' %}" class="btn btn-warning ml-3">Login</a>
           {% else %}
-            <a href="{% url 'login' %}" class="btn btn-warning">Login</a>
+            <a href="{% url 'login' %}" class="btn btn-warning ml-3">Login</a>
           {% endif %}
-            <a href="{% url 'cart' %}">
-              <img id="cart-icon" src="{% static 'images/shopping-icon.png' %}" />
-            </a>
           </div>
         </div>
       </div>

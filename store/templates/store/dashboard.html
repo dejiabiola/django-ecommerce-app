@@ -5,10 +5,25 @@
 
 {% block content %}
 <h1>Dashboard</h1>
-<div style="height: 400px; width: 400px">
+<h4>Summary of all Orders</h4>
+<table class="mb-5" style="width: 100%">
+  <tr>
+    <th>Customer</th>
+    <th>Completed Status</th>
+    <th>Created Date</th>
+  </tr>
+  {% for order in orders %}
+  <tr>
+    <td>{{order.customer}}</td>
+    <td>{{order.complete}}</td>
+    <td>{{order.created_date}}</td>
+  </tr>
+  {% endfor %}
+</table>
+<h4 class="mb-4">Table showing the number of products we have for different brands in ascending order</h4>
+<div style="height: 400px; width: 400px" class="mt-5">
   <canvas id="myChart" width="200" height="200"></canvas>
 </div>
-<h4>Table showing the number of products we have for different brands in ascending order</h4>
 <div class="d-flex">
   <div>
     <h6>Brand Name</h6>
@@ -23,6 +38,7 @@
     {% endfor %}
   </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script type= 'text/javascript'>
 var ctx = document.getElementById('myChart').getContext('2d');

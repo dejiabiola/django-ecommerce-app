@@ -5,7 +5,9 @@ from django.utils import timezone
 from django.db.models.signals import post_save
 
 # create models here
-
+# Code Referenced
+# https://github.com/divanov11/django_ecommerce_mod5/blob/master/store/models.py
+# https://github.com/scharlau/shopping_exercise_django/blob/main/shop/models.py
 class Customer(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
   name = models.CharField(max_length=200, null=True)

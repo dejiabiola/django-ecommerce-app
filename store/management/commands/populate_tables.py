@@ -14,6 +14,7 @@ from faker import Faker
 
 from store.models import Customer, LineItem, Order, Product
 
+
 class Command(BaseCommand):
     help = 'Load data into the tables'
 
@@ -30,7 +31,7 @@ class Command(BaseCommand):
         fake = Faker()
 
         # create some customers
-        #! Add links to where code was copied
+        # Some code referenced from https://github.com/scharlau/shopping_exercise_django/blob/main/shop/management/commands/populate_tables.py
         for i in range(10):
           first_name = fake.first_name(),
           last_name = fake.last_name(),
@@ -47,6 +48,7 @@ class Command(BaseCommand):
 
         # read products from 
         base_dir = Path(__file__).resolve().parent.parent.parent.parent
+        #open data gotten from https://www.kaggle.com/PromptCloudHQ/flipkart-products
         with open(str(base_dir) + '/store/csv_folder/mens_westernwear.csv', newline='') as f:
           reader = csv.reader(f, delimiter=",")
           next(reader)

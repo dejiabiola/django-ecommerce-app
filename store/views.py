@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
+from django.http import HttpResponse, HttpResponseNotFound,HttpResponseServerError, Http404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
@@ -22,6 +23,14 @@ class Basket:
 
 # Create your views here.
 
+def error_400_view(request, exception):
+    return HttpResponse("Bad request, probably not the right command?")
+
+def error_404_view(request, exception):
+    return HttpResponseNotFound("So sorry we could not find the page you were looking for")
+
+def error_500_view(request):
+    return HttpResponseServerError("Oops something went wront on our side. Sorry!")
 
 
 # convenience method as used in several methods
@@ -56,12 +65,12 @@ def user_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
           login(request, user)
-          messages.success(request, 'You were logged in successfully')
           # Redirect to a success page.
           if user.is_authenticated & user.is_staff:
-            return redirect(dashboard)
-          elif user.is_authenticated:
-            return redirect('/')
+            messages.success(request, 'You were logged in successfully as admin')
+          else:
+            messages.success(request, 'You were logged in successfully')
+          return redirect('/')
         else:
           messages.error(request, 'Invalid username or password')
 
@@ -149,10 +158,11 @@ def product_new(request):
             product = form.save(commit=False)
             product.created_date = timezone.now()
             product.save()
+            messages.success(request, product.name + ' has been added successfully')
             return redirect('product_detail', id=product.id)
     else:
         form = ProductForm()
-    return render(request, 'store/product_edit.html', {'form': form})
+    return render(request, 'store/product_edit.html', {'form': form, 'new': 'new'})
 
 def product_edit(request, id):
     user = request.user
@@ -164,6 +174,7 @@ def product_edit(request, id):
               product = form.save(commit=False)
               product.created_date = timezone.now()
               product.save()
+              messages.success(request, product.name + ' has been updated successfully')
               return redirect('product_detail', id=product.id)
       else:
           form = ProductForm(instance=product)
@@ -173,6 +184,10 @@ def product_edit(request, id):
 
 #search from product
 def product_search(request):
+  try:
+    guest_login = request.session['user']
+  except KeyError:
+    guest_login = None
   search = ''
   searched_products = []
   if request.method == 'POST':
@@ -184,7 +199,7 @@ def product_search(request):
     searched_products.extend(products_by_name)
     
 
-  context = {'searched_products': searched_products, 'search': search}
+  context = {'searched_products': searched_products, 'search': search, 'guest_login': guest_login}
   return render(request, 'store/product_search.html', context)
 
 # Delete Product By Admin Logic
@@ -270,6 +285,8 @@ def dashboard(request):
     name2 = brand_names[-4]
     name1 = brand_names[-5] 
     orders = Order.objects.all()
+    for order in orders:
+      print(orders)
     brand_names = reversed(brand_names)
     brand_numbers = reversed(brand_numbers)
     context = {'names': brand_names, 'numbers': brand_numbers, 'number5':number5, 'number4':number4, 'number3':number3,
@@ -322,7 +339,12 @@ def payment(request):
     #     state=state,
     #     zipcode=zipcode
     #   )
+    messages.success(request, 'Thank you for your order. It has been processed successfully')
     return redirect('index')
 
 def contact(request):
-  return render(request, 'store/contact.html')
+  try:
+    guest_login = request.session['user']
+  except KeyError:
+    guest_login = None
+  return render(request, 'store/contact.html', {'guest_login': guest_login})
