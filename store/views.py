@@ -100,7 +100,7 @@ def register(request):
         print("Form is not valid")
 
     context = {'form': form}
-    return render(request, 'store/register.html', context)
+    return render(request, 'registration/register.html', context)
 
 def logoutUser(request):
   logout(request)
