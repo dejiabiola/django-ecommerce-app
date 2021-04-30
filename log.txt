@@ -1,0 +1,179 @@
+* commit f7b5ff1a04ca41e6c37ef3a5fd9dd526b7fe56ea
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Fri Apr 30 15:34:54 2021 +0100
+| 
+|     add one page document
+| 
+* commit 44e85850acdfc551abe76ee9009991952e3be76a
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Fri Apr 30 00:26:23 2021 +0100
+| 
+|     cleanup of code, adding references, readme and css
+| 
+* commit 75ea819f54023f56bc44f82cbe20081f8007021a
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Thu Apr 29 19:36:16 2021 +0100
+| 
+|     add chart to dashboard
+| 
+* commit 7a99c66630e008104eac3be2dd079a7adff244d8
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Thu Apr 29 00:45:54 2021 +0100
+| 
+|     add search functionality
+| 
+* commit b77d3969d500d0cd864cf115678bb06e13378e23
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Mon Apr 26 00:58:31 2021 +0100
+| 
+|     final
+| 
+* commit b7174340c253017f80a0804493a22998f3587c03
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Mon Apr 26 00:55:08 2021 +0100
+| 
+|     omo
+| 
+* commit 7b769b0aa2c42872a539a437d444153f541911fa
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Mon Apr 26 00:50:56 2021 +0100
+| 
+|     god abeg
+| 
+* commit 1e272e80bc289164db7b6181c6cbd370e4e968fd
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Mon Apr 26 00:48:21 2021 +0100
+| 
+|     heroku deploy
+| 
+* commit 9002df147ff48164c9c86442604ac611e27d9ab4
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Mon Apr 26 00:47:03 2021 +0100
+| 
+|     heroku deplou
+| 
+* commit 42b517911777bf537f88bd90f979520f5898afa2
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Mon Apr 26 00:29:53 2021 +0100
+| 
+|     update requirements.txt
+| 
+* commit edb7885efd804b024bc769a0d0f00ee56f5998a9
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Mon Apr 26 00:26:34 2021 +0100
+| 
+|     ready heroku
+| 
+* commit 133697c98a5a61610703dd70396102dde16e9e2a
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Mon Apr 26 00:07:36 2021 +0100
+| 
+|     add related products in product details page
+| 
+* commit 9bcaeb9536a98599647fdfb6208ee88eb90341fd
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Sun Apr 25 23:14:23 2021 +0100
+| 
+|     add behave tests to the codebase
+| 
+* commit 167e77082364a95c082bd6a850c9b0323055f4c9
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Sun Apr 25 14:15:36 2021 +0100
+| 
+|     add payment option and contact page
+| 
+* commit ab1730f8c488373496bcc65138a7f47ccb1ba68f
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Sun Apr 18 23:51:15 2021 +0100
+| 
+|     implement checkout display for guest user
+| 
+* commit 2246253dd284b32f35735453519e48acf051033c
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Sat Apr 17 03:51:57 2021 +0100
+| 
+|     buy product and view orders in cart page functionality done for both signed in and guest users
+| 
+* commit 68d93ae0c164acd9cebf205eca0c85c44f608cb4
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Sat Apr 17 01:43:56 2021 +0100
+| 
+|     fix guest login logic
+| 
+* commit 9b1607730902854e72d1d4ac7142f0e081488245
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Fri Apr 16 23:28:50 2021 +0100
+| 
+|     heroku deploy take 4
+| 
+* commit e0f6e01e1f91c50b88d9f4bf73cc4d926a3c1b54
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Fri Apr 16 22:13:09 2021 +0100
+| 
+|     heroku take 2
+| 
+* commit 8cdd77c516ec50c2ff5752c84a28ae68c1d5455c
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Fri Apr 16 22:06:41 2021 +0100
+| 
+|     heroku deploy ready
+| 
+* commit d3db65d289fadcf01c20299efd0db3983a70ba74
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Wed Apr 14 03:48:36 2021 +0100
+| 
+|     add product details page
+| 
+* commit 99216aea14172a7a4f9914828a399a79981b2074
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Wed Apr 14 02:55:12 2021 +0100
+| 
+|     implement user login
+| 
+* commit 5969fe009e3536c8270b0f2ea853cfd8baffd2b1
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Wed Apr 14 01:52:09 2021 +0100
+| 
+|     implement register functionality
+| 
+* commit c35f5121f91b2b1a3b936a063473c8759589f2d5
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Wed Apr 14 00:31:21 2021 +0100
+| 
+|     render checkout page
+| 
+* commit 59edd11f88e57e0466e64bf6e22e71c77318f157
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Sun Apr 11 01:17:28 2021 +0100
+| 
+|     render order items in cart page
+| 
+* commit 7e69ece1abe4e1ebb3222bb2c7a5e03cfdedc9a8
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Sun Apr 11 00:24:51 2021 +0100
+| 
+|     rendered products in index page
+| 
+* commit a48c7b790a068b0f95e512287fc9f845a6886ec5
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Sat Apr 10 23:51:43 2021 +0100
+| 
+|     setup templates for index, cart and checkout pages
+| 
+* commit 13fee4491b800074d611a76a299a750ec65a0571
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Sat Apr 10 23:49:58 2021 +0100
+| 
+|     set up databse models, csv open data, parsed the products and stored in the database
+| 
+* commit 2007e06ed33d5984546ef11a75eff752c62e1fae
+| Author: Adedeji Abiola <adedejiabiola56@gmail.com>
+| Date:   Sun Apr 4 03:52:24 2021 +0100
+| 
+|     initial setup of codebase
+| 
+* commit 28a28517921fba6a86c04468b71b8790a30f03e2
+  Author: Deji Abiola <adedejiabiola56@gmail.com>
+  Date:   Sun Apr 4 03:37:54 2021 +0100
+  
+      Initial commit

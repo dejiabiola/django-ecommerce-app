@@ -65,7 +65,7 @@ behave
  ## Deployment
 
 This application was deployed to Heroku using Gunicorn as it's HTTP server. Click the link below to check out the deployed website
-https://agile-bastion-30369.herokuapp.com/
+https://powerful-wildwood-78943.herokuapp.com/
 ## Roadmap 
 
 This application is still in an early stage of development and can be enhanced further by implementing several features. These include, but are not limited to: 
